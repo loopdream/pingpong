@@ -1,0 +1,77 @@
+
+body {
+	font-family: "Josefin Sans";
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 24px;
+	color: #272727;
+
+	margin: 0 2%;
+	padding-top: 100px;
+	width: 96%;
+}
+
+.player {
+	overflow: hidden;
+	float: left;
+	width: 50%;
+	margin-bottom: 30px;
+	position: relative;
+	/*-webkit-perspective: 700;*/
+}
+
+.score-card {
+	position: relative;
+}
+
+.score-card,
+.score,
+.number {
+	height: 410px;
+}
+
+.score {
+	font-size: 410px;
+	line-height: 410px;
+
+	width: 100%;
+	position: absolute;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transform: translate3d(0, 0, 0);
+	-webkit-transition: cubic-bezier(0.190, 1.000, 0.220, 1.000) 400ms;
+}
+
+.number {
+	-webkit-backface-visibility: hidden;
+
+	text-align: center;
+	display: block;
+	position: absolute;
+	width: 100%;
+}
+
+.next {
+	-webkit-transform: rotateY( 180deg );
+}
+
+.flipped {
+	-webkit-transform: rotateY( 180deg );
+}
+
+.btn {
+	-webkit-user-select: none;
+	cursor: pointer;
+	padding: 10px 15px;
+	display: inline-block;
+	background: #eee;
+	clear: both;
+	margin: 10px;
+	border-radius: 1px;
+	text-shadow: 0 1px 0 #fff;
+	font-weight: bold;
+	text-align: center;
+}
+
+.reset-btn {
+	display: block;
+}
