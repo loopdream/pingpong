@@ -9,7 +9,10 @@ class Test extends CI_Controller
 
 	public function all()
 	{
-		$this->load->view('test/all');
+		$this->load->model('mQueue', 'queue');
+		$data['waiting_users'] = $this->queue->get_waiting_users();
+		
+		$this->load->view('test/all', $data);
 	}
 
 }

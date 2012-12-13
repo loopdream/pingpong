@@ -36,7 +36,13 @@ class mQueue extends CI_Model
 
 	public function get_waiting_users()
 	{
-		
+		$this->load->model('muser', 'user');
+		$query = $this->db->get_where($this->table, array('notified' => 0));
+		$results = $query->result();
+		$results_array = array();
+		foreach ($results as $key => $result)
+			$results_array[] = $this->user->get_by_id($result->user_id);
+		return $results_array;
 	}
 
 	public function set_played($id='')
