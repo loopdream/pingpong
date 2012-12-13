@@ -15,21 +15,24 @@
 	<a href="#" id="addall">Add everyone</a>
 
 	<hr>
+	<h3>Current Game</h3>
+	<? if ($game): ?>
+		<ul>
+			<li><img src="<?=$p1->twitter_avatar?>"> <?=$p1->twitter_name?> - <a href="/index.php/game/finish/21/10" class="finish_game">p1 wins</a></li>
+			<li><img src="<?=$p2->twitter_avatar?>"> <?=$p2->twitter_name?> - <a href="/index.php/game/finish/10/21" class="finish_game">p2 wins</a></li>
+		</ul>
+	<? else: ?>
+		<p>No game in progress - 
+		<a href="/index.php/game/start" id="create_a_game">This link will create a game</a></p>
+	<? endif; ?>
+
+	<hr>
 	<h3>People waiting</h3>
 	<ul>
 	<? foreach ($waiting_users as $user): ?>
 		<li><img src="<?=$user->twitter_avatar?>"> <?=$user->twitter_name?></li>
 	<? endforeach; ?>
 	</ul>
-
-	<hr>
-	<h3>Create a game</h3>
-	<a href="/index.php/game/start" id="create_a_game">This link will create a game</a>
-
-	<hr>
-	<h3>Finish a game</h3>
-	<a href="/index.php/game/finish/21/10" class="finish_game">This link p1 will win</a>
-	| <a href="/index.php/game/start/10/21" class="finish_game">This link p2 will win</a>
 
 	<hr>
 	<h3>Clear everything</h3>

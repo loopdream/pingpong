@@ -10,8 +10,16 @@ class Test extends CI_Controller
 	public function all()
 	{
 		$this->load->model('mQueue', 'queue');
+		$this->load->model('mUser', 'user');
+		$this->load->model('mGame', 'game');
+
 		$data['waiting_users'] = $this->queue->get_waiting_users();
-		
+		$data['game'] = $this->game->get_current_game();
+		if ($data['game'])
+		{
+			$data['p1'] = $this->user->get_by_id($data['game']->p1_id);
+			$data['p2'] = $this->user->get_by_id($data['game']->p2_id);
+		}
 		$this->load->view('test/all', $data);
 	}
 

@@ -45,6 +45,13 @@ class Game extends CI_Controller
 			return;
 		}
 
+		$this->load->model('mqueue', 'queue');
+		$this->load->model('muser', 'user');
+		$p1 = $this->user->get_by_id($game->p1_id);
+		$p2 = $this->user->get_by_id($game->p2_id);
+		$queue = $this->queue->set_played($p1);
+		$queue = $this->queue->set_played($p2);
+
 		$game = $this->game->finish_game($p1score, $p2score);
 		echo '{ "message": "OK" }';
 	}

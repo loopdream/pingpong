@@ -17,7 +17,7 @@ class mQueue extends CI_Model
 
 	public function add_player($user='')
 	{
-		$queue = $this->get_by_user($user);
+		$queue = $this->user_is_already_waiting($user);
 		if ($queue) return false;
 
 		$data['user_id'] = $user->id;
@@ -26,6 +26,12 @@ class mQueue extends CI_Model
 		$data['playing'] = 0;
 		$data['finished'] = 0;
 		return $this->db->insert($this->table, $data)  ?  true : false ;
+	}
+
+	public function user_is_already_waiting($user='')
+	{
+		$query = $this->db->get_where($this->table, array('user_id' => $user->id, 'notified' => 0));
+		return $query->row();	
 	}
 
 	public function get_by_user($user='')
@@ -64,7 +70,8 @@ class mQueue extends CI_Model
 
 	public function set_played($user='')
 	{
-		$data['played'] = 1;
+		$data['playing'] = 1;
+		$data['finished'] = 1;
 		return $this->db->update($this->table, $data,array("user_id" => $user->id))  ?  true : false ;
 	}
 
