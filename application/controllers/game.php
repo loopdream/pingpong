@@ -30,7 +30,9 @@ class Game extends CI_Controller
 				$this->queue->set_notified($p2);
 
 				$this->load->helper('text');
-				send_text($number, "the table is ready, GET TO DA CHOPPA");
+				$message = "the table is ready, GET TO DA CHOPPA";
+				send_text($p1->phone_number, $message);
+				send_text($p2->phone_number, $message);
 			}
 
 			$this->load->helper('twitter');
