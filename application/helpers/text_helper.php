@@ -1,17 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+	function send_text($number, $message)
+	{
+		require_once APPPATH . "libraries/Services/Twilio.php";
+		$AccountSid = "ACde7c9348d97a26eafd09fa5a269613be";
+		$AuthToken = "699b86f2e3f8d581f47e9d3521067f13";
 
-User joins the queue
-	Text 5050 "Maracuja"
-		- Silently register user
-	Responds "you are 5th in the queue"
-	Responds "you are playing already"
-	Responds "you are already in the queue"
+		// Step 3: instantiate a new Twilio Rest Client
+		$client = new Services_Twilio($AccountSid, $AuthToken);
+		$sms = $client->account->sms_messages->create(
+			"+442033222281", 
+			$number,
+			$message
+		);
 
-System Creates a game
-	Responds "table is ready"
-	Text "no" get next user
-	Text "yes"
-	If two users have said yes
-		- tweet "game started between @blah and @blah"
-		- set game_in_progress = 1
+		echo "sent";
+	}

@@ -46,6 +46,19 @@ class Test extends CI_Controller
 
 		foreach ($messages as $message) tweet_message($message);
 	}
+
+	public function text()
+	{
+		$this->load->helper('text');
+
+		$messages = array(
+			"the table is ready. GET TO DA CHOPPA",
+			"ha ha you suck bro"
+		);
+		$number = "+447403061588";
+
+		foreach ($messages as $message) send_text($number, $message);
+	}
 }
 
 /* End of file welcome.php */

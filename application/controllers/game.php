@@ -28,6 +28,9 @@ class Game extends CI_Controller
 			{
 				$this->queue->set_notified($p1);
 				$this->queue->set_notified($p2);
+
+				$this->load->helper('text');
+				send_text($number, "the table is ready, GET TO DA CHOPPA");
 			}
 
 			$this->load->helper('twitter');
