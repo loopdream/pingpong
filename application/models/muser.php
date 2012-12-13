@@ -30,7 +30,7 @@ class mUser extends CI_Model
 	public function register_user($details)
 	{
 		$data['phone_number'] = $details['From'];
-		$data['twitter_name'] = $details['Body'];
+		$data['twitter_name'] = str_replace("@", "", $details['Body']);
 		$data['twitter_avatar'] = 'http://graph.facebook.com/david.kenneth.george.hamilton.dick.ii/picture';
 		return $this->db->insert($this->table, $data)  ?  true : false ;
 	}
