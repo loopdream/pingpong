@@ -59,6 +59,12 @@ class Game extends CI_Controller
 		$queue = $this->queue->set_played($p1);
 		$queue = $this->queue->set_played($p2);
 
+		$this->load->helper('text');
+		$winner_phone_number = ($p1score > $p2score) ? $p1->phone_number : $p2->phone_number;
+		$loser_phone_number = ($p1score < $p2score) ? $p1->phone_number : $p2->phone_number;
+		send_text($winner_phone_number, "you won! YAHOOOO~ PAAAAAAADOOOOOORRRUUUUUUUU~");
+		send_text($loser_phone_number, "you lost, better luck next time! ... erm, so i told everyone on twitter about this ... hope that's ok.");
+
 		$this->load->helper('twitter');
 		tweet_message("@{$p1->twitter_name} {$p1score} vs {$p2score} @{$p2->twitter_name} ... result. PAAADOOOOORUUUUUUU");
 
