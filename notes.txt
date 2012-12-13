@@ -1,0 +1,49 @@
+
+User joins the queue
+	Text 5050 "Maracuja"
+		- Silently register user
+	Responds "you are 5th in the queue"
+	Responds "you are playing already"
+	Responds "you are already in the queue"
+
+System Creates a game
+	Responds "table is ready"
+	Text "no" get next user
+	Text "yes"
+	If two users have said yes
+		- tweet "game started between @blah and @blah"
+		- set game_in_progress = 1
+
+Game is over
+	- Computer tweets the result
+	- set game in progress = 0
+Ring the loser and play rick astley to them
+No one has played in a while and the queue is empty
+	- tweet that the table is empty
+
+Website
+	handling texts from people
+		- /text/receive
+	show game in progress
+		- /game/current
+		- /game/finalscore
+		- /game/start
+	show people waiting | default state
+		- /waitingroom (also results history)
+
+Schema / Model
+	Users
+		- getById(id)
+		- registerUser(twittername)
+		- workOutAvatar()
+	Queue
+		- addPlayer(twitter_name)
+		- setPlayed(id)
+		- playerAccepts()
+		- playerDeclines()
+		- getNextPlayer()
+	Games
+		- createGame(id)
+		- finishGame(id)
+		- currentGame() //returns false if there is no current game
+		- tauntLoser()
