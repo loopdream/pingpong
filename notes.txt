@@ -24,26 +24,10 @@ No one has played in a while and the queue is empty
 Website
 	handling texts from people
 		- /text/receive
+		- test/ addplayer
 	show game in progress
 		- /game/current
 		- /game/finalscore
 		- /game/start
 	show people waiting | default state
 		- /waitingroom (also results history)
-
-Schema / Model
-	Users
-		- getById(id)
-		- registerUser(twittername)
-		- workOutAvatar()
-	Queue
-		- addPlayer(twitter_name)
-		- setPlayed(id)
-		- playerAccepts()
-		- playerDeclines()
-		- getNextPlayer()
-	Games
-		- createGame(id)
-		- finishGame(id)
-		- currentGame() //returns false if there is no current game
-		- tauntLoser()

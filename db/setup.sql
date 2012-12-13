@@ -11,8 +11,7 @@ CREATE TABLE `users` (
 DROP TABLE IF EXISTS `queue`;
 CREATE TABLE `queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(100) NOT NULL,
-  `action` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `notified` tinyint NOT NULL,
   `accepted` tinyint NOT NULL,
   `playing` tinyint NOT NULL,
