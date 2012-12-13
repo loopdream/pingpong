@@ -17,31 +17,39 @@ if (typeof console == 'undefined') console = { log: function(){} };
 	var $players;
 	var $player1;
 	var $player2;
+	var $audio;
 
 	var $removeButton;
 	var $resetButton;
-	var player1Score;
-	var player2Score;
+	var player1ScoreAudio;
+	var player2ScoreAudio;
 	var newScore;
-	var doubleClick;
-	var doubleClickTimer;
-
+	var audioPath;
+	var commentary;
+ 
 
 	/**
 	Dom Ready
 	*/
 	$(function() {
+		
 		$body = $('body');
 
 		$players = $('.player');
 		$player1 = $('#player1');
 		$player2 = $('#player2');
-
+	 	 
 		$removeButton = $('.remove-btn');
 		$resetButton = $('.reset-btn');
+		
+		audioPath = '/assets/audio/';
+		
+		commentary = new Array('awesome', 'really_good', 'shit_no_good', 'shit', 'wft', 'come_on', 'your_invincible');
 
 		initGlobal();
+
 	});
+
 
 	/**
 	Global init
@@ -58,16 +66,45 @@ if (typeof console == 'undefined') console = { log: function(){} };
 		$body.single_double_click(function (e) { // single click
 		  
 
-			if (e.keyCode == 37)  // 37 == left || 38 == up
+			if (e.keyCode == 37)  // 37 == left  > add / remove point Player 1
 			{
 				player1Score = parseInt($player1.find('.current').text(), 0);
-				addPoint($player1, player1Score);
-			}
-			else if (e.keyCode == 39) // 39 == right || 40 == down
-			{
 				player2Score = parseInt($player2.find('.current').text(), 0);
-				addPoint($player2, player2Score);
+				
+				if(player1Score < 21)
+				{
+					addPoint($player1, player1Score);
+				}
+
+				speakScore(
+						(player1Score+1), 
+						(player2Score)
+					);
+			 
 			}
+			if (e.keyCode == 39) // 39 == right > add / remove point Player 2
+			{
+				player1Score = parseInt($player1.find('.current').text(), 0);
+				player2Score = parseInt($player2.find('.current').text(), 0);
+				
+				if(player2Score < 21)
+				{
+					addPoint($player2, player2Score);
+				}
+
+				speakScore(
+						(player1Score), 
+						(player2Score+1)
+					);
+			}
+			else if (e.keyCode == 39) // 38 == up > new game / rematch
+			{
+
+			}
+
+
+			
+
 
 		}, function (e) { // double click
 		
@@ -76,11 +113,17 @@ if (typeof console == 'undefined') console = { log: function(){} };
 			{
 				player1Score = parseInt($player1.find('.current').text(), 0);
 				removePoint($player1, player1Score);
+
 			}
-			else if (e.keyCode == 39)
+			if (e.keyCode == 39)
 			{
 				player2Score = parseInt($player2.find('.current').text(), 0);
 				removePoint($player2, player2Score);
+
+			}
+			else if (e.keyCode == 39)
+			{
+
 			}
 
 
@@ -91,6 +134,24 @@ if (typeof console == 'undefined') console = { log: function(){} };
 			removePoint($players, parseInt($players.find('.current').text(), 0), true);
 		});
 	}
+
+
+	function speakScore(score1, score2)
+	{
+		$('#number-'+score1).get(0).play();
+		setTimeout(function(){ $('#number-'+score2).get(0).play();}, 1100);
+		setTimeout(function(){ $('#commentary-'+randomCommentary()).get(0).play();}, 2200);
+	}
+
+
+
+	function randomCommentary()
+	{
+		var randomCommentary = commentary[Math.floor(Math.random()*commentary.length)];
+		return randomCommentary;
+	}
+
+
 
 	function addPoint(aoPlayer, anPlayerScore)
 	{
