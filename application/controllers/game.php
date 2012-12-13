@@ -29,7 +29,9 @@ class Game extends CI_Controller
 				$this->queue->set_notified($p1);
 				$this->queue->set_notified($p2);
 			}
-			echo '{ "status": "OK", "message": "game started" }';
+
+			$this->load->helper('twitter');
+			tweet_message("@{$p1->twitter_name} and @{$p2->twitter_name} just started playing");
 		}
 		else
 			echo '{ "status": "error", "message": "there aren\'t enough players yet." }';
@@ -51,6 +53,9 @@ class Game extends CI_Controller
 		$p2 = $this->user->get_by_id($game->p2_id);
 		$queue = $this->queue->set_played($p1);
 		$queue = $this->queue->set_played($p2);
+
+		$this->load->helper('twitter');
+		tweet_message("@{$p1->twitter_name} {$p1score} vs {$p2score} @{$p2->twitter_name} ... result. PAAADOOOOORUUUUUUU");
 
 		$game = $this->game->finish_game($p1score, $p2score);
 		echo '{ "message": "OK" }';

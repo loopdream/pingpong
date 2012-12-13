@@ -1,16 +1,23 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-	function tweet_game_start()
+	function tweet_message($message='')
 	{
-		$message = "@ricardo and @cucchi just started playing";
-	}
+		if (!$message) return false;
 
-	function tweet_game_result()
-	{
-		$message = "@ricardo 21 vs @cuchi 0";
-	}
+        require_once APPPATH.'libraries/tmhTwitter/tmhOAuth.php';
+        require_once APPPATH.'libraries/tmhTwitter/tmhUtilities.php';
 
-	function tweet_im_lonely()
-	{
-		$message = "noone has played in ages *sadface*";
+		$CI =& get_instance();
+        $CI->load->config('tmhTwitter');
+
+		$tmhOAuth = new tmhOAuth(array(
+			'consumer_key'    =>  $CI->config->item('twitter_consumer_token'), 
+			'consumer_secret' =>  $CI->config->item('twitter_consumer_secret'), 
+			'user_token'      =>  $CI->config->item('twitter_access_token'),
+			'user_secret'     =>  $CI->config->item('twitter_access_secret')
+		));
+		$message .= "#" . mktime() . " #rgamakeday";
+		$code = $tmhOAuth->request('POST', $tmhOAuth->url('1/statuses/update'), array(
+		  'status' => $message
+		));
 	}

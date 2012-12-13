@@ -33,6 +33,19 @@ class Test extends CI_Controller
 		$this->user->clear();
 		$this->game->clear();
 	}
+
+	public function tweet()
+	{
+		$this->load->helper('twitter');
+
+		$messages = array(
+			"@ricardo and @cucchi just started playing",
+			"@ricardo 21 vs 0 @cucchi ... result. PAAADOOOOORUUUUUUU",
+			"noone has played in ages *sadface*"
+		);
+
+		foreach ($messages as $message) tweet_message($message);
+	}
 }
 
 /* End of file welcome.php */
