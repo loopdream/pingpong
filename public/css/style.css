@@ -63,8 +63,8 @@ width: 96%; */
 	left: 0;
 	display: block;
 	width: 100%;
-	 
-	background-color: #25b6f6;
+	background-color: #149cf3;
+	overflow: hidden;
 }
 
 
@@ -75,10 +75,31 @@ width: 96%; */
 }
 
 #player-queue li {
-	display: inline;
-	width:10%;
+	display: inline-block;
+	text-align: center;
+	width: 150px;
+	height: 115px;
+	color: white;
+	font-size: 1.4em;
+	padding-top: 35px;
+}
+#player-queue li .queue-number {
+	display: block;
+	font-size: 30px;
+	line-height: 50px;
+	font-family: 'ITCAvantGardeStd-Bold';
 }
 
+#player-queue li[data-index='1'] { background-color: #007bef; }
+#player-queue li[data-index='2'] { background-color: #0481f0; }
+#player-queue li[data-index='3'] { background-color: #0888f1; }
+#player-queue li[data-index='4'] { background-color: #0c8ff1; }
+#player-queue li[data-index='5'] { background-color: #1095f2; }
+#player-queue li[data-index='6'] { background-color: #149cf3; }
+#player-queue li[data-index='7'] { background-color: #19a3f4; }
+#player-queue li[data-index='8'] { background-color: #1da9f5; }
+#player-queue li[data-index='9'] { background-color: #21b0f5; }
+#player-queue li[data-index='10'] { background-color: #25b6f6; }
 
 #scores {
 	display: block;
@@ -145,19 +166,24 @@ background-image: linear-gradient(to bottom, #2BCBF4 0%, #1598EB 100%);
 .player-name {
 	position: relative;
  	text-align: center;
-  
+  	
 }
 
 .player-name span {
 	background-color: white;
 	color: #00A3EF;
-	padding: 10px 10px 5px;
+	padding: 10px 10px 5px 55px;
 	font-size: 30px;
+	height: 47px;
+	background-repeat: no-repeat;
+}
+
+.player-name img {
+
 }
 
 .number {
 	-webkit-backface-visibility: hidden;
-
 	text-align: center;
 	display: block;
 	position: absolute;

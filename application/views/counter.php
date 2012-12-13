@@ -32,7 +32,7 @@
 					 
 				</div>
 	 			<div class="player-name">
-						<span>@maracuja</span>
+	 					<span style="background-image: url(http://a0.twimg.com/profile_images/1434098433/RGA2011_Square_normal.jpg);">@loopdream</span>
 				</div>
 			</div>
 	
@@ -48,7 +48,8 @@
 				
 									
 				<div class="player-name">
-						<span>@loopdream</span>
+						 
+						<span style="background-image: url(http://a0.twimg.com/profile_images/1434098433/RGA2011_Square_normal.jpg);">@loopdream</span>
 				</div>
 				 
 			</div>	

@@ -67,12 +67,12 @@ if (typeof console == 'undefined') console = { log: function(){} };
 
 		$body.single_double_click(function (e) { // single click
 		  
+		  	player1Score = parseInt($player1.find('.current').text(), 0);
+			player2Score = parseInt($player2.find('.current').text(), 0);
 
 			if (e.keyCode == 37)  // 37 == left  > add / remove point Player 1
 			{
-				player1Score = parseInt($player1.find('.current').text(), 0);
-				player2Score = parseInt($player2.find('.current').text(), 0);
-				
+		
 				if(player1Score < 21)
 				{
 					addPoint($player1, player1Score);
@@ -86,9 +86,7 @@ if (typeof console == 'undefined') console = { log: function(){} };
 			}
 			if (e.keyCode == 39) // 39 == right > add / remove point Player 2
 			{
-				player1Score = parseInt($player1.find('.current').text(), 0);
-				player2Score = parseInt($player2.find('.current').text(), 0);
-				
+			
 				if(player2Score < 21)
 				{
 					addPoint($player2, player2Score);
@@ -101,6 +99,15 @@ if (typeof console == 'undefined') console = { log: function(){} };
 			}
 			else if (e.keyCode == 38) // 38 == up > new game / rematch
 			{
+
+/*			   $.ajax({
+				  url: '/index.php/game/finish/'+player1Score+'/'+playerScore,
+				  success: function(data) {
+				    var result = $.parseJSON( data )
+				    console.log(result.message);
+				  }
+				});	*/
+
 				// start a new game!
 				$.ajax({
 				  url: '/index.php/game/start',
@@ -199,10 +206,10 @@ if (typeof console == 'undefined') console = { log: function(){} };
 		  url: '/index.php/queue/waiting',
 		  success: function(data) {
 			var i = 0;	
-			
+			$playerQueue.find('ul').empty();
 			while(i < data.length)
 			{
-				item = '<li data-id="'+data[i].id+'" data-name="'+data[i].twitter_name+'" data-phone="'+data[i].phone_number+'" data-avatar="'+data[i].twitter_avatar+'">'+data[i].twitter_name+'</li>';
+				item = '<li data-index="'+(i+1)+'" data-id="'+data[i].id+'" data-name="'+data[i].twitter_name+'" data-phone="'+data[i].phone_number+'" data-avatar="'+data[i].twitter_avatar+'"><span class="queue-number">#'+(i+1)+'</span>'+data[i].twitter_name+'</li>';
 				$playerQueue.find('ul').append(item);
 				console.log(data[i].phone_number);
 				i++;
@@ -217,7 +224,7 @@ if (typeof console == 'undefined') console = { log: function(){} };
 
 	function setOpponents()
 	{
-		
+
 	}
 
 
