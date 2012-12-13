@@ -15,6 +15,16 @@ class Test extends CI_Controller
 		$this->load->view('test/all', $data);
 	}
 
+	public function clear_all()
+	{
+		$this->load->model('mQueue', 'queue');
+		$this->load->model('mUser', 'user');
+		$this->load->model('mGame', 'game');
+
+		$this->queue->clear();
+		$this->user->clear();
+		$this->game->clear();
+	}
 }
 
 /* End of file welcome.php */

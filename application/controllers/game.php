@@ -12,18 +12,40 @@ class Game extends CI_Controller
 		$this->load->model('mQueue', 'queue');
 		$this->load->model('mGame', 'game');
 
-		$p1 = $this->queue->get_next_player();
-		$p2 = $this->queue->get_next_player();
-		$game = $this->game->create_game($p1, $p2);
+		// is there a game in progress?
+		$game = $this->game->get_current_game();
+		if ($game)
+		{
+			echo '{ "status": "error", "message": "there is a game in progress" }';
+			return;
+		}
 
-		echo '{ "message": "OK", "game_id": "5" }';
+		list($p1, $p2) = $this->queue->get_next_players();
+		if ($p1 && $p2)
+		{
+			$game = $this->game->create_game($p1, $p2);
+			if ($game)
+			{
+				$this->queue->set_notified($p1);
+				$this->queue->set_notified($p2);
+			}
+			echo '{ "status": "OK", "message": "game started" }';
+		}
+		else
+			echo '{ "status": "error", "message": "there aren\'t enough players yet." }';
 	}
 
-	public function finish($id='')
+	public function finish($p1score=0, $p2score=0)
 	{
 		$this->load->model('mgame', 'game');
+		$game = $this->game->get_current_game();
+		if (!$game)
+		{
+			echo '{ "status": "error", "message": "there are no games in progress" }';
+			return;
+		}
 
-		$game = $this->game->finish_game($id);
+		$game = $this->game->finish_game($p1score, $p2score);
 		echo '{ "message": "OK" }';
 	}
 

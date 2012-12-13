@@ -34,4 +34,10 @@ class mUser extends CI_Model
 		$data['twitter_avatar'] = 'http://graph.facebook.com/david.kenneth.george.hamilton.dick.ii/picture';
 		return $this->db->insert($this->table, $data)  ?  true : false ;
 	}
+
+	public function clear()
+	{
+		$this->db->where('id >', '0');
+		$this->db->delete($this->table);
+	}
 }

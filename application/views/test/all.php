@@ -10,6 +10,8 @@
 		<br><input type="submit">
 	</form>
 
+	<hr>
+	<h3>Add everyone</h3>
 	<a href="#" id="addall">Add everyone</a>
 
 	<hr>
@@ -22,23 +24,26 @@
 
 	<hr>
 	<h3>Create a game</h3>
-	<a href=""></a>
+	<a href="/index.php/game/start" id="create_a_game">This link will create a game</a>
 
 	<hr>
+	<h3>Finish a game</h3>
+	<a href="/index.php/game/finish/21/10" class="finish_game">This link p1 will win</a>
+	| <a href="/index.php/game/start/10/21" class="finish_game">This link p2 will win</a>
+
+	<hr>
+	<h3>Clear everything</h3>
+	<a href="/index.php/test/clear_all" id="clear_all">This will delete everything</a>
 
 	<script src="/js/jquery-1.8.2.min.js"></script>
 	<script>
 		var allofus = [
 			{ "name" : "maracuja", "number" : "447403061588" },
 			{ "name" : "loopdream", "number" : "447900905138" },
-			{ "name" : "", "number" : "" },
-			{ "name" : "", "number" : "" },
-			{ "name" : "", "number" : "" },
-			{ "name" : "", "number" : "" },
-			{ "name" : "", "number" : "" },
-			{ "name" : "", "number" : "" },
-			{ "name" : "", "number" : "" },
-			{ "name" : "", "number" : "" },
+			{ "name" : "amorini", "number" : "447729112804" },
+			{ "name" : "Zimon14", "number" : "447586757018" },
+			{ "name" : "surdeco", "number" : "447896229505" },
+			{ "name" : "Pippyduck", "number" : "447803725141" },
 			{ "name" : "", "number" : "" },
 		]
 
@@ -66,6 +71,27 @@
 						);
 					}
 				}
+				e.preventDefault();
+			});
+
+			$('#create_a_game').click(function (e) {
+				$.ajax(
+					$(this).attr('href')
+				);
+				e.preventDefault();
+			});
+
+			$('#clear_all').click(function (e) {
+				$.ajax(
+					$(this).attr('href')
+				);
+				e.preventDefault();
+			});
+
+			$('.finish_game').click(function (e) {
+				$.ajax(
+					$(this).attr('href')
+				);
 				e.preventDefault();
 			});
 		});
