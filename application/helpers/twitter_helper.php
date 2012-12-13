@@ -16,7 +16,7 @@
 			'user_token'      =>  $CI->config->item('twitter_access_token'),
 			'user_secret'     =>  $CI->config->item('twitter_access_secret')
 		));
-		$message .= "#" . mktime() . " #rgamakeday";
+		$message .= " #" . mktime() . " #rgamakeday";
 		$code = $tmhOAuth->request('POST', $tmhOAuth->url('1/statuses/update'), array(
 		  'status' => $message
 		));
