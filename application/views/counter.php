@@ -18,7 +18,7 @@
 
 	<body>
 	
-
+		<img src="images/logo.png" id="logo">
 		
 		<div id="scores">
 
@@ -60,8 +60,7 @@
 		<div id="player-queue">
 			
 			<ul>
-				<li>@maracuja</li>
-				<li>@loopdream</li>
+
 			</ul>
 			
 		</div>
@@ -96,7 +95,10 @@
 		<audio id="commentary-shit_no_good" src="audio/shit_no_good.mp3">
 		<audio id="commentary-wft" src="audio/wft.mp3">
 		<audio id="commentary-come_on" src="audio/come_on.mp3">
-		<audio id="commentary-your_invincible" src="audio/your_invincible.mp3">
+		<audio id="commentary-game_on" src="audio/game_on.mp3">
+		<audio id="commentary-youre_invincible" src="audio/youre_invincible.mp3">
+		<audio id="gong" src="audio/gong.mp3">
+		<audio id="church-bell" src="audio/church-bell.mp3">
 		
 </audio>
 

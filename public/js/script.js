@@ -18,9 +18,10 @@ if (typeof console == 'undefined') console = { log: function(){} };
 	var $player1;
 	var $player2;
 	var $audio;
-
+	var $playerQueue;
 	var $removeButton;
 	var $resetButton;
+
 	var player1ScoreAudio;
 	var player2ScoreAudio;
 	var newScore;
@@ -38,13 +39,13 @@ if (typeof console == 'undefined') console = { log: function(){} };
 		$players = $('.player');
 		$player1 = $('#player1');
 		$player2 = $('#player2');
-	 	 
+	 	$playerQueue = $('#player-queue');
 		$removeButton = $('.remove-btn');
 		$resetButton = $('.reset-btn');
 		
-		audioPath = '/assets/audio/';
+		audioPath = '/audio/';
 		
-		commentary = new Array('awesome', 'really_good', 'shit_no_good', 'shit', 'wft', 'come_on', 'your_invincible');
+		commentary = new Array('awesome', 'really_good', 'shit_no_good', 'shit', 'wft', 'come_on', 'youre_invincible');
 
 		initGlobal();
 
@@ -57,6 +58,7 @@ if (typeof console == 'undefined') console = { log: function(){} };
 	function initGlobal()
 	{
 		keyBindings();
+		refreshPlayerQueue();
 	}
 
 	function keyBindings()
@@ -91,14 +93,28 @@ if (typeof console == 'undefined') console = { log: function(){} };
 				{
 					addPoint($player2, player2Score);
 				}
-
+ 
 				speakScore(
 						(player1Score), 
 						(player2Score+1)
 					);
 			}
-			else if (e.keyCode == 39) // 38 == up > new game / rematch
+			else if (e.keyCode == 38) // 38 == up > new game / rematch
 			{
+				// start a new game!
+				$.ajax({
+				  url: '/index.php/game/start',
+				  success: function(data) {
+				    var result = $.parseJSON( data )
+				    console.log(result.message);
+				    resetScores();	
+				    refreshPlayerQueue();
+				    setOpponents();	
+				    // audio
+					$('#church-bell').get(0).play();
+					setTimeout(function(){ $('#commentary-game_on').get(0).play(); }, 1100);
+				  }
+				});	
 
 			}
 
@@ -121,9 +137,12 @@ if (typeof console == 'undefined') console = { log: function(){} };
 				removePoint($player2, player2Score);
 
 			}
-			else if (e.keyCode == 39)
+			else if (e.keyCode == 38) // rematch
 			{
-
+				resetScores();	
+				$('#church-bell').get(0).play();
+				setTimeout(function(){ $('#commentary-game_on').get(0).play(); }, 1100);
+				
 			}
 
 
@@ -151,7 +170,10 @@ if (typeof console == 'undefined') console = { log: function(){} };
 		return randomCommentary;
 	}
 
-
+	function resetScores()
+	{
+		$('.score-card .score .number').html('0');
+	}
 
 	function addPoint(aoPlayer, anPlayerScore)
 	{
@@ -168,6 +190,36 @@ if (typeof console == 'undefined') console = { log: function(){} };
 			aoPlayer.find('.score').removeClass('flipped');
 		}
 	}
+
+
+	function refreshPlayerQueue()
+	{
+
+		$.ajax({
+		  url: '/index.php/queue/waiting',
+		  success: function(data) {
+			var i = 0;	
+			
+			while(i < data.length)
+			{
+				item = '<li data-id="'+data[i].id+'" data-name="'+data[i].twitter_name+'" data-phone="'+data[i].phone_number+'" data-avatar="'+data[i].twitter_avatar+'">'+data[i].twitter_name+'</li>';
+				$playerQueue.find('ul').append(item);
+				console.log(data[i].phone_number);
+				i++;
+
+			}	
+		  }
+		});
+ 
+	}
+
+
+
+	function setOpponents()
+	{
+		
+	}
+
 
 	function removePoint(aoPlayer, anPlayerScore, abResetScore)
 	{

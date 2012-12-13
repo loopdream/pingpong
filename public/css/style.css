@@ -49,12 +49,22 @@ padding-top: 100px;
 width: 96%; */
 }
 
-
+#logo {
+	position: absolute;
+	top: 40px;
+	z-index: 10000;
+	left: 50%;
+  	margin-left:-42px;
+}
 
 #player-queue {
+	position: absolute;
+	bottom: 0;
+	left: 0;
 	display: block;
 	width: 100%;
-	height: 10%;
+	 
+	background-color: #25b6f6;
 }
 
 
@@ -66,13 +76,14 @@ width: 96%; */
 
 #player-queue li {
 	display: inline;
+	width:10%;
 }
 
 
 #scores {
 	display: block;
 	width: 100%;
-	height: 90%;
+	height: 100%;
 
 }
 
@@ -114,11 +125,13 @@ background-image: linear-gradient(to bottom, #2BCBF4 0%, #1598EB 100%);
 .score-card,
 .score,
 .number {
-	height: 410px;
+	height: 500px;
+	padding-top: 70px
 }
 
 .score {
-	font-size: 50em;
+	font-size: 410px;
+
 	line-height: 410px;
 	font-family: "ITCAvantGardeStd-XLt";
 	/*text-shadow: 1px 1px #1598EB;*/
