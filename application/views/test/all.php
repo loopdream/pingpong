@@ -5,8 +5,8 @@
 <body>
 	<h3>Join the queue</h3>
 	<form action="/index.php/text/receive" method="post" id="test">
-		<br>Number <input type="text" name="number" id="number" value="+447403061588">
-		<br>Text <input type="text" name="text" id="text" value="maracuja">
+		<br>Number <input type="text" name="From" id="number" value="+447403061588">
+		<br>Text <input type="text" name="Body" id="text" value="maracuja">
 		<br><input type="submit">
 	</form>
 
@@ -55,7 +55,7 @@
 				$.ajax(
 					$(this).attr('action'),
 					{
-						"data" : "number=" + $('#number').val() + "&text=" + $('#text').val(),
+						"data" : "From=" + $('#number').val() + "&Body=" + $('#text').val(),
 					}
 				);
 				e.preventDefault();
@@ -69,7 +69,7 @@
 						$.ajax(
 							$('#test').attr('action'),
 							{
-								"data" : "number=" + allofus[i]['number'] + "&text=" + allofus[i]['name'],
+								"data" : "From=" + allofus[i]['number'] + "&Body=" + allofus[i]['name'],
 							}
 						);
 					}

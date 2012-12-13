@@ -12,15 +12,12 @@ class Text extends CI_Controller
 		$this->load->model('mQueue', 'queue');
 		$this->load->model('mUser', 'user');
 
-		$_REQUEST['number'] = $_REQUEST['Caller'];
-		error_log($_REQUEST);
-
 		// get the user
-		$user = $this->user->get_by_number($_REQUEST['number']);
+		$user = $this->user->get_by_number($_REQUEST['From']);
 		if (!$user)
 		{
 			$this->user->register_user($_REQUEST);
-			$user = $this->user->get_by_number($_REQUEST['number']);
+			$user = $this->user->get_by_number($_REQUEST['From']);
 		}
 
 		$result = $this->queue->add_player($user);
