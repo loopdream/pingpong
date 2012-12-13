@@ -31,8 +31,16 @@ class mUser extends CI_Model
 	{
 		$data['phone_number'] = $details['From'];
 		$data['twitter_name'] = str_replace("@", "", $details['Body']);
-		$data['twitter_avatar'] = 'http://graph.facebook.com/david.kenneth.george.hamilton.dick.ii/picture';
+		$data['twitter_avatar'] = $this->get_twitter_avatar($data['twitter_name']);
 		return $this->db->insert($this->table, $data)  ?  true : false ;
+	}
+
+	public function get_twitter_avatar($name)
+	{
+		$contents = file_get_contents("https://api.twitter.com/1/users/show.json?screen_name={$name}&include_entities=true");
+		$contents = json_decode($contents);
+		if (isset($contents->profile_image_url)) return $contents->profile_image_url;
+		else return "http://graph.facebook.com/david.kenneth.george.hamilton.dick.ii/picture";
 	}
 
 	public function clear()
