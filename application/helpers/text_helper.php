@@ -6,13 +6,10 @@
 		$AccountSid = "ACde7c9348d97a26eafd09fa5a269613be";
 		$AuthToken = "699b86f2e3f8d581f47e9d3521067f13";
 
-		// Step 3: instantiate a new Twilio Rest Client
-		$client = new Services_Twilio($AccountSid, $AuthToken);
-		$sms = $client->account->sms_messages->create(
-			"+442033222281", 
-			$number,
-			$message
-		);
-
-		echo "sent";
+		// $client = new Services_Twilio($AccountSid, $AuthToken);
+		// $sms = $client->account->sms_messages->create(
+		// 	"+442033222281", 
+		// 	$number,
+		// 	$message
+		// );
 	}

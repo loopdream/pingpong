@@ -48,6 +48,12 @@ class mGame extends CI_Model {
 		return $query->row();	
 	}
 
+	public function get_recently_finished_game()
+	{
+		$query = $this->db->query("SELECT * FROM games WHERE finished=1 order by id desc limit 1");
+		return $query->row();	
+	}
+
 	public function clear()
 	{
 		$this->db->where('id >', '0');

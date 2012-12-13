@@ -7,7 +7,7 @@ class Game extends CI_Controller
 		echo '{ "message": "OK" }';
 	}
 
-	public function start()
+	public function start($send_text='yes')
 	{
 		$this->load->model('mQueue', 'queue');
 		$this->load->model('mGame', 'game');
@@ -31,12 +31,17 @@ class Game extends CI_Controller
 
 				$this->load->helper('text');
 				$message = "the table is ready, GET TO DA CHOPPA";
-				send_text($p1->phone_number, $message);
-				send_text($p2->phone_number, $message);
+
+				if ($send_text == 'yes')
+				{
+					send_text($p1->phone_number, $message);
+					send_text($p2->phone_number, $message);
+				}
 			}
 
 			$this->load->helper('twitter');
 			tweet_message("@{$p1->twitter_name} and @{$p2->twitter_name} just started playing");
+			echo '{ "status": "ok", "message": "starting game." }';
 		}
 		else
 			echo '{ "status": "error", "message": "there aren\'t enough players yet." }';
@@ -72,11 +77,18 @@ class Game extends CI_Controller
 		echo '{ "message": "OK" }';
 	}
 
-	public function replay()
+	public function current()
 	{
-		// you don't have to do anything lol
-		echo '{ "message": "OK" }';
-	}		
+		$this->load->model('mGame', 'game');
+		$this->load->model('mUser', 'user');
+
+		$game = $this->game->get_current_game();
+		$p1 = $this->user->get_by_id($game->p1_id);
+		$p2 = $this->user->get_by_id($game->p2_id);
+
+		header('Content-type: application/json');
+		echo '{ "p1_name" : "' . $p1->twitter_name .'", "p1_avatar": "' . $p1->twitter_avatar .'", "p2_name" : "' . $p2->twitter_name .'", "p2_avatar": "' . $p2->twitter_avatar .'" }';
+	}	
 }
 
 /* End of file welcome.php */

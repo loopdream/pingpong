@@ -45,7 +45,7 @@ if (typeof console == 'undefined') console = { log: function(){} };
 		
 		audioPath = '/audio/';
 		
-		commentary = new Array('awesome', 'really_good', 'shit_no_good', 'shit', 'wft', 'come_on', 'youre_invincible');
+		commentary = new Array('awesome', 'really_good', 'shit_no_good', 'shit', 'wtf', 'come_on', 'youre_invincible');
 
 		initGlobal();
 
@@ -99,27 +99,41 @@ if (typeof console == 'undefined') console = { log: function(){} };
 						(player2Score+1)
 					);
 			}
-			else if (e.keyCode == 38) // 38 == up > new game / rematch
+			else if (e.keyCode == 38) // 38 == up > new game
 			{
-				// start a new game!
-				$.ajax({
-				  url: '/index.php/game/start',
-				  success: function(data) {
-				    var result = $.parseJSON( data )
-				    console.log(result.message);
-				    resetScores();	
-				    refreshPlayerQueue();
-				    setOpponents();	
-				    // audio
-					$('#church-bell').get(0).play();
-					setTimeout(function(){ $('#commentary-game_on').get(0).play(); }, 1100);
-				  }
-				});	
+				player1Score = parseInt($player1.find('.current').text(), 0);
+				player2Score = parseInt($player2.find('.current').text(), 0);
 
+				if ((player1Score > 20 || player2Score > 20) && currently_playing)
+				{
+					$.ajax({
+					  url: '/index.php/game/finish/' + player1Score + '/' + player2Score,
+					  success: function(data) {
+					  	alert('game result was tweeted!');
+					  	currently_playing = false;
+					  }
+					});
+				}
+				else
+				{
+					// start a new game!
+					$.ajax({
+					  url: '/index.php/game/start/notext',
+					  success: function(data) {
+					    var result = $.parseJSON( data )
+					    console.log(result.message);
+					    resetScores();	
+					    refreshPlayerQueue();
+					    setOpponents();
+					    currently_playing = true;
+					    // audio
+						$('#church-bell').get(0).play();
+						setTimeout(function(){ $('#commentary-game_on').get(0).play(); }, 1100);
+					  }
+					});	
+				}
 			}
 
-
-			
 
 
 		}, function (e) { // double click
@@ -194,12 +208,12 @@ if (typeof console == 'undefined') console = { log: function(){} };
 
 	function refreshPlayerQueue()
 	{
-
+		console.log('refreshing player queue');
 		$.ajax({
 		  url: '/index.php/queue/waiting',
 		  success: function(data) {
 			var i = 0;	
-			
+			$playerQueue.find('li').remove();
 			while(i < data.length)
 			{
 				item = '<li data-id="'+data[i].id+'" data-name="'+data[i].twitter_name+'" data-phone="'+data[i].phone_number+'" data-avatar="'+data[i].twitter_avatar+'">'+data[i].twitter_name+'</li>';
@@ -210,14 +224,23 @@ if (typeof console == 'undefined') console = { log: function(){} };
 			}	
 		  }
 		});
- 
+		setTimeout(function (){ refreshPlayerQueue() }, 10000);
 	}
 
 
 
 	function setOpponents()
 	{
-		
+		console.log('setting opponents');
+		$.ajax({
+		  url: '/index.php/game/current',
+		  success: function(data) {
+			$player1.find('.player-name span').text('@' + data.p1_name);
+			$player1.find('.player-name img').attr('src', data.p1_avatar);
+			$player2.find('.player-name span').text('@' + data.p2_name);
+			$player2.find('.player-name img').attr('src', data.p2_avatar);
+		  }
+		});
 	}
 
 
