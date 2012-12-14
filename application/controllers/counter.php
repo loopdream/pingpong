@@ -19,7 +19,26 @@ class Counter extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('counter');
+		$this->load->model('mQueue', 'queue');
+		$this->load->model('mUser', 'user');
+		$this->load->model('mGame', 'game');
+
+		$data['waiting'] = false;
+		$data['game'] = $this->game->get_current_game();
+		if ($data['game'])
+		{
+			$data['p1'] = $this->user->get_by_id($data['game']->p1_id);
+			$data['p2'] = $this->user->get_by_id($data['game']->p2_id);
+		}
+		else
+		{
+			$data['waiting'] = true;
+			$data['game'] = $this->game->get_recently_finished_game();
+			$data['p1'] = $this->user->get_by_id($data['game']->p1_id);
+			$data['p2'] = $this->user->get_by_id($data['game']->p2_id);			
+		}
+
+		$this->load->view('counter', $data);
 	}
 }
  

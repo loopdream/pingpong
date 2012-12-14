@@ -26,13 +26,14 @@
 		
 				<div class="score-card">
 					<span class="score">
-						<span class="number front current">0</span>
-						<span class="number back next">0</span>
+						<span class="number front current"><?=$game->p1_score?></span>
+						<span class="number back next"><?=$game->p1_score?></span>
 					</span>
 					 
 				</div>
 	 			<div class="player-name">
-	 					<span style="background-image: url(http://a0.twimg.com/profile_images/1434098433/RGA2011_Square_normal.jpg);">@loopdream</span>
+						<span>@<?=$p1->twitter_name?></span>
+						<img src="<?=$p1->twitter_avatar?>">
 				</div>
 			</div>
 	
@@ -40,16 +41,16 @@
 			
 				<div class="score-card">
 					<span class="score">
-						<span class="number front current">0</span>
-						<span class="number back next">0</span>
+						<span class="number front current"><?=$game->p2_score?></span>
+						<span class="number back next"><?=$game->p2_score?></span>
 					</span>
 					 
 				</div>
 				
 									
 				<div class="player-name">
-						 
-						<span style="background-image: url(http://a0.twimg.com/profile_images/1434098433/RGA2011_Square_normal.jpg);">@loopdream</span>
+						<span>@<?=$p2->twitter_name?></span>
+						<img src="<?=$p2->twitter_avatar?>">
 				</div>
 				 
 			</div>	
@@ -106,6 +107,9 @@
 		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery.flipCounter.1.2.pack.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>
+		<script>
+			var currently_playing = <?=($waiting == false) ? 'true' : 'false' ?>
+		</script>
 
 	</body>
 
