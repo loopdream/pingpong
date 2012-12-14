@@ -17,9 +17,9 @@
 
 
 	<body>
-	
-		<img src="images/logo.png" id="logo">
 		
+		<img src="images/logo.png" id="logo">
+		<div id="tweeted">Game result was tweeted!</div>
 		<div id="scores">
 
 			<div id="player1" class="player">
@@ -32,8 +32,7 @@
 					 
 				</div>
 	 			<div class="player-name">
-						<span>@<?=$p1->twitter_name?></span>
-						<img src="<?=$p1->twitter_avatar?>">
+	 					<span style="background-image: url(<?=$p1->twitter_avatar?>);">@<?=$p1->twitter_name?></span>
 				</div>
 			</div>
 	
@@ -49,8 +48,7 @@
 				
 									
 				<div class="player-name">
-						<span>@<?=$p2->twitter_name?></span>
-						<img src="<?=$p2->twitter_avatar?>">
+						<span style="background-image: url(<?=$p2->twitter_avatar?>);">@<?=$p2->twitter_name?></span>
 				</div>
 				 
 			</div>	
@@ -66,6 +64,9 @@
 			</ul>
 			
 		</div>
+		
+		
+		
 		
 		<audio id="number-0" src="audio/0.mp3">
 		<audio id="number-1" src="audio/1.mp3">

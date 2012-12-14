@@ -58,6 +58,7 @@ if (typeof console == 'undefined') console = { log: function(){} };
 	function initGlobal()
 	{
 		keyBindings();
+		$('#tweeted').hide();
 		refreshPlayerQueue();
 	}
 
@@ -109,7 +110,9 @@ if (typeof console == 'undefined') console = { log: function(){} };
 					$.ajax({
 					  url: '/index.php/game/finish/' + player1Score + '/' + player2Score,
 					  success: function(data) {
-					  	alert('game result was tweeted!');
+					  	
+					  	$('#tweeted').fadeIn().delay(2000).fadeOut('slow')
+
 					  	currently_playing = false;
 					  }
 					});
@@ -218,7 +221,7 @@ if (typeof console == 'undefined') console = { log: function(){} };
 
 			while(i < data.length)
 			{
-				item = '<li data-index="'+(i+1)+'" data-id="'+data[i].id+'" data-name="'+data[i].twitter_name+'" data-phone="'+data[i].phone_number+'" data-avatar="'+data[i].twitter_avatar+'"><span class="queue-number">#'+(i+1)+'</span>'+data[i].twitter_name+'</li>';
+				item = '<li data-index="'+(i+1)+'" data-id="'+data[i].id+'" data-name="'+data[i].twitter_name+'" data-phone="'+data[i].phone_number+'" data-avatar="'+data[i].twitter_avatar+'"><span class="queue-number">#'+(i+1)+'</span>@'+data[i].twitter_name+'</li>';
 				$playerQueue.find('ul').append(item);
 				console.log(data[i].phone_number);
 				i++;
@@ -238,10 +241,10 @@ if (typeof console == 'undefined') console = { log: function(){} };
 		$.ajax({
 		  url: '/index.php/game/current',
 		  success: function(data) {
-			$player1.find('.player-name span').text('@' + data.p1_name);
-			$player1.find('.player-name img').attr('src', data.p1_avatar);
-			$player2.find('.player-name span').text('@' + data.p2_name);
-			$player2.find('.player-name img').attr('src', data.p2_avatar);
+			$player1.find('.player-name span').css({ 'background-image' : 'url(' + data.p1_avatar + ')' }).text('@' + data.p1_name);
+			//$player1.find('.player-name img').attr('src', data.p1_avatar);
+			$player2.find('.player-name span').css({ 'background-image' : 'url(' + data.p2_avatar + ')' }).text('@' + data.p2_name);
+			//$player2.find('.player-name img').attr('src', data.p2_avatar);
 		  }
 		});
 

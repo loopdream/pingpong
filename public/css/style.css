@@ -49,6 +49,19 @@ padding-top: 100px;
 width: 96%; */
 }
 
+#tweeted {
+	position: absolute;
+	color: white;
+	width: 100%;
+	text-align: center;
+	top:345px;
+	left:0;
+	z-index: 10000;
+	font-size: 3em;
+	text-transform: lowercase;
+
+}
+
 #logo {
 	position: absolute;
 	top: 40px;
