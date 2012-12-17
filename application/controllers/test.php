@@ -89,6 +89,24 @@ class Test extends CI_Controller
 
 		foreach ($messages as $message) send_text($number, $message);
 	}
+
+	public function winners()
+	{
+		$this->load->helper('text');
+
+		$message = "hi! this is padoru, thanks for making me and congrats for winning make day! awesome team x x x";
+		$numbers = array(
+			'+447729112804',
+			'+447896229505',
+			'+447803725141',
+			'+447900905138',
+			'+447541889479',
+			'+447586757018'
+		);
+
+		foreach ($numbers as $number) send_text($number, $message);
+		echo "done";
+	}
 }
 
 /* End of file welcome.php */
